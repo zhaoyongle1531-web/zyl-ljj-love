@@ -4,6 +4,10 @@
 
 GitHub 私有仓库 -> Cloudflare Workers Static Assets -> 永久 `workers.dev` 链接。
 
+如果 `workers.dev` 在当前网络打不开，项目也内置了 GitHub Pages 自动发布配置，可以使用：
+
+`https://zhaoyongle1531-web.github.io/zyl-ljj-love/`
+
 ## 日常维护
 
 ### 修改文字和清单
@@ -45,6 +49,14 @@ https://dash.cloudflare.com/?to=/:account/workers/onboarding
 `https://zyl-ljj-love.你的子域.workers.dev`
 
 以后每次推送 GitHub，Cloudflare 会自动更新永久网址。
+
+## GitHub Pages 备用网址
+
+仓库已包含：
+
+`.github/workflows/github-pages.yml`
+
+在 GitHub 仓库 `Settings -> Pages` 里把 Source 设为 `GitHub Actions`，之后每次推送都会自动发布到 GitHub Pages。
 
 ## 隐私
 

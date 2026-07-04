@@ -2,7 +2,7 @@
 
 这是一个适合长期维护的静态情侣网站。推荐发布方式是：
 
-GitHub 私有仓库 -> Cloudflare Pages -> 永久 `pages.dev` 链接。
+GitHub 私有仓库 -> Cloudflare Workers Static Assets -> 永久 `workers.dev` 链接。
 
 ## 日常维护
 
@@ -26,17 +26,25 @@ GitHub 私有仓库 -> Cloudflare Pages -> 永久 `pages.dev` 链接。
 
 - 压缩照片到 `assets/web_photos/`
 - 更新 `content.json` 里的相册列表
-- 生成 Cloudflare Pages 要发布的 `publish_site/`
+- 生成 Cloudflare 要发布的 `publish_site/`
 
-## Cloudflare Pages 设置
+## Cloudflare 设置
 
-连接 GitHub 仓库后，Pages 项目建议这样填：
+如果 Cloudflare 后台显示 `Create a Worker`，这是新版入口。选择：
 
-- Framework preset: `None`
-- Build command: 留空
-- Build output directory: `publish_site`
+- `Continue with GitHub`
+- 选择仓库 `zyl-ljj-love`
+- 让 Cloudflare 使用项目里的 `wrangler.jsonc`
 
-以后每次推送 GitHub，Cloudflare Pages 会自动更新永久网址。
+第一次部署前，需要注册一次 `workers.dev` 子域名：
+
+https://dash.cloudflare.com/?to=/:account/workers/onboarding
+
+注册后，永久网址一般类似：
+
+`https://zyl-ljj-love.你的子域.workers.dev`
+
+以后每次推送 GitHub，Cloudflare 会自动更新永久网址。
 
 ## 隐私
 

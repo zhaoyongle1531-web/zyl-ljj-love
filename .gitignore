@@ -1,0 +1,18 @@
+__pycache__/
+*.pyc
+
+# Local tunnel/runtime files
+cloudflared.*.log
+public_link.txt
+public_status.txt
+share_link.txt
+
+# Temporary upload package
+love_site_for_cloud.zip
+
+# Private original photos are for local editing only.
+assets/photos/
+assets/original_photos/
+
+# Keep publish_site tracked; Cloudflare Pages should deploy it.
+!publish_site/

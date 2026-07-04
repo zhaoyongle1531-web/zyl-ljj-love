@@ -52,15 +52,15 @@ https://dash.cloudflare.com/?to=/:account/workers/onboarding
 
 ## GitHub Pages 备用网址
 
-仓库已包含发布目录：
+仓库会维护一个专门用于发布的分支：
 
-`docs/`
+`gh-pages`
 
 在 GitHub 仓库 `Settings -> Pages` 里选择：
 
 - Source: `Deploy from a branch`
-- Branch: `master`
-- Folder: `/docs`
+- Branch: `gh-pages`
+- Folder: `/(root)`
 
 保存后，GitHub Pages 会发布到：
 

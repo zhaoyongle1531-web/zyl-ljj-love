@@ -4,6 +4,7 @@ import shutil
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 PUBLISH_DIR = os.path.join(ROOT, "publish_site")
+DOCS_DIR = os.path.join(ROOT, "docs")
 
 FILES = [
     "index.html",
@@ -28,6 +29,7 @@ def copy_file(name):
 
 def main():
     safe_rmtree(PUBLISH_DIR)
+    safe_rmtree(DOCS_DIR)
     os.makedirs(os.path.join(PUBLISH_DIR, "assets"), exist_ok=True)
 
     for name in FILES:
@@ -41,7 +43,9 @@ def main():
     with open(os.path.join(PUBLISH_DIR, ".nojekyll"), "w", encoding="utf-8") as file:
         file.write("")
 
+    shutil.copytree(PUBLISH_DIR, DOCS_DIR)
     print("Publish site built: {}".format(PUBLISH_DIR))
+    print("GitHub Pages site built: {}".format(DOCS_DIR))
 
 
 if __name__ == "__main__":

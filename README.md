@@ -4,7 +4,7 @@
 
 GitHub 私有仓库 -> Cloudflare Workers Static Assets -> 永久 `workers.dev` 链接。
 
-如果 `workers.dev` 在当前网络打不开，项目也内置了 GitHub Pages 自动发布配置，可以使用：
+如果 `workers.dev` 在当前网络打不开，项目也内置了 GitHub Pages 发布目录，可以使用：
 
 `https://zhaoyongle1531-web.github.io/zyl-ljj-love/`
 
@@ -52,11 +52,19 @@ https://dash.cloudflare.com/?to=/:account/workers/onboarding
 
 ## GitHub Pages 备用网址
 
-仓库已包含：
+仓库已包含发布目录：
 
-`.github/workflows/github-pages.yml`
+`docs/`
 
-在 GitHub 仓库 `Settings -> Pages` 里把 Source 设为 `GitHub Actions`，之后每次推送都会自动发布到 GitHub Pages。
+在 GitHub 仓库 `Settings -> Pages` 里选择：
+
+- Source: `Deploy from a branch`
+- Branch: `master`
+- Folder: `/docs`
+
+保存后，GitHub Pages 会发布到：
+
+`https://zhaoyongle1531-web.github.io/zyl-ljj-love/`
 
 ## 隐私
 

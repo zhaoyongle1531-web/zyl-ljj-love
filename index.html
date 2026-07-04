@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>赵永乐 & 刘晶晶的爱情小站</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="hero" id="top">
+    <div class="hero__media" aria-hidden="true">
+      <img id="heroImage" src="assets/web_photos/photo_33.jpg" alt="">
+    </div>
+    <nav class="nav" aria-label="页面导航">
+      <a href="#story">故事</a>
+      <a href="#moments">清单</a>
+      <a href="#gallery">相册</a>
+    </nav>
+    <section class="hero__content">
+      <p class="eyebrow" id="heroEyebrow">Our private love website</p>
+      <h1 id="heroTitle">赵永乐 & 刘晶晶</h1>
+      <p class="hero__text" id="heroText">从 2024.10.02 开始，把普通日子过成只属于两个人的浪漫。</p>
+      <div class="hero__actions">
+        <a class="button button--primary" href="#gallery">看我们的回忆</a>
+        <a class="button button--ghost" href="#moments">42件小事</a>
+      </div>
+    </section>
+  </header>
+
+  <main>
+    <section class="section intro" id="story">
+      <div class="section__head">
+        <p class="eyebrow">Milestones</p>
+        <h2>时间替我们记得</h2>
+      </div>
+      <div class="stats" aria-label="爱情纪念日">
+        <article class="stat">
+          <span class="stat__label">在一起</span>
+          <strong id="togetherDays">--</strong>
+          <span class="stat__meta" id="togetherDate">2024.10.02</span>
+        </article>
+        <article class="stat">
+          <span class="stat__label">订婚</span>
+          <strong id="engagedDays">--</strong>
+          <span class="stat__meta" id="engagedDate">2025.10.02</span>
+        </article>
+        <article class="stat">
+          <span class="stat__label">专属生日</span>
+          <strong>农历</strong>
+          <span class="stat__meta" id="birthdayText">永乐：腊月初三 / 晶晶：正月初五</span>
+        </article>
+      </div>
+    </section>
+
+    <section class="section names" id="peopleGrid">
+    </section>
+
+    <section class="section moments" id="moments">
+      <div class="section__head">
+        <p class="eyebrow">Love list</p>
+        <h2>一起做过的 42 件事</h2>
+      </div>
+      <div class="moment-grid" id="momentGrid"></div>
+    </section>
+
+    <section class="section gallery" id="gallery">
+      <div class="section__head">
+        <p class="eyebrow">Memory album</p>
+        <h2>把照片放进时间里</h2>
+      </div>
+      <div class="gallery-grid" id="galleryGrid" aria-label="情侣回忆相册"></div>
+    </section>
+  </main>
+
+  <button class="to-top" type="button" aria-label="回到顶部">↑</button>
+
+  <dialog class="lightbox" id="lightbox">
+    <button class="lightbox__close" type="button" aria-label="关闭">×</button>
+    <img id="lightboxImg" alt="放大的回忆照片">
+  </dialog>
+
+  <script src="script.js"></script>
+</body>
+</html>

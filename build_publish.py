@@ -39,6 +39,12 @@ def main():
         os.path.join(ROOT, "assets", "web_photos"),
         os.path.join(PUBLISH_DIR, "assets", "web_photos"),
     )
+    timeline_photos = os.path.join(ROOT, "assets", "timeline_photos")
+    if os.path.isdir(timeline_photos):
+        shutil.copytree(
+            timeline_photos,
+            os.path.join(PUBLISH_DIR, "assets", "timeline_photos"),
+        )
 
     with open(os.path.join(PUBLISH_DIR, ".nojekyll"), "w", encoding="utf-8") as file:
         file.write("")

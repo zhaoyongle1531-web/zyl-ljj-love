@@ -152,8 +152,6 @@ function renderTimeline(content) {
 
   $("#timelineList").innerHTML = `${items}
     <article class="timeline-item timeline-item--future timeline-item--bottom">
-      <div class="timeline-item__body">
-      </div>
       <div class="timeline-item__marker timeline-item__marker--future">
         <span>∞</span>
         <strong>未完待续</strong>
@@ -202,6 +200,7 @@ function bindInteractions() {
 
   timelineList.addEventListener("pointerdown", (event) => {
     if (event.button !== undefined && event.button !== 0) return;
+    if (event.target.closest("[data-lightbox-src]")) return;
     isDraggingTimeline = true;
     timelineMoved = false;
     dragStartX = event.clientX;

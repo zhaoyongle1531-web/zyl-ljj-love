@@ -9,7 +9,9 @@ DOCS_DIR = os.path.join(ROOT, "docs")
 FILES = [
     "index.html",
     "styles.css",
+    "styles.timeline-fix.css",
     "script.js",
+    "script.timeline-fix.js",
     "content.json",
 ]
 

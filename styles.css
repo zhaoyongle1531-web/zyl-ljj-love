@@ -440,13 +440,17 @@ a {
   font-size: 20px;
 }
 
+.timeline-item--future .timeline-item__body {
+  display: none;
+}
+
 .timeline-photos {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   grid-auto-rows: 44px;
   gap: 8px;
   min-height: 192px;
-  padding: 20px 18px 22px;
+  padding: 22px 18px;
 }
 
 .timeline-photo {
@@ -458,10 +462,21 @@ a {
   overflow: hidden;
   border: 0;
   border-radius: 7px;
-  background: rgba(255, 255, 255, 0.72);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(255, 242, 236, 0.72)),
+    linear-gradient(120deg, rgba(107, 154, 136, 0.12), rgba(201, 77, 104, 0.12));
   box-shadow: 0 10px 26px rgba(61, 45, 52, 0.18);
   cursor: zoom-in;
   touch-action: manipulation;
+}
+
+.timeline-photo::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, rgba(255,255,255,0.18), rgba(255,255,255,0.62), rgba(255,255,255,0.18));
+  transform: translateX(-100%);
+  animation: photo-shimmer 1.2s ease-in-out infinite;
 }
 
 .timeline-photos--1 .timeline-photo {
@@ -515,15 +530,23 @@ a {
 }
 
 .timeline-photo img {
+  position: relative;
+  z-index: 1;
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.28s ease;
+  transition: transform 0.28s ease, opacity 0.24s ease;
 }
 
 .timeline-photo:hover img {
   transform: scale(1.04);
+}
+
+@keyframes photo-shimmer {
+  100% {
+    transform: translateX(100%);
+  }
 }
 
 .gallery-grid {
@@ -687,6 +710,6 @@ a {
   .timeline-photos {
     grid-auto-rows: 38px;
     min-height: 178px;
-    padding: 18px 14px 20px;
+    padding: 18px 14px;
   }
 }

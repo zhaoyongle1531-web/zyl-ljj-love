@@ -122,27 +122,30 @@ function renderMoments(content) {
 function renderTimeline(content) {
   const items = content.timeline.map((item, index) => {
     const dateKey = compactDate(item.date);
-    const photoButtons = (timelinePhotoIndexes[dateKey] || []).map((photoIndex) => {
+    const photoIndexes = timelinePhotoIndexes[dateKey] || [];
+    const photoButtons = photoIndexes.map((photoIndex, photoPosition) => {
       const src = `assets/timeline_photos/${dateKey}_${photoIndex}.jpg`;
       return `
-        <button class="timeline-photo" type="button" data-lightbox-src="${src}" aria-label="查看 ${escapeHtml(item.title)} 的照片">
+        <button class="timeline-photo timeline-photo--${photoPosition + 1}" type="button" data-lightbox-src="${src}" aria-label="查看 ${escapeHtml(item.title)} 的照片">
           <img src="${src}" loading="lazy" alt="${escapeHtml(item.title)}">
         </button>
       `;
     }).join("");
-    const photos = photoButtons ? `<div class="timeline-photos">${photoButtons}</div>` : "";
+    const photoCount = Math.min(Math.max(photoIndexes.length, 1), 4);
+    const photos = photoButtons ? `<div class="timeline-photos timeline-photos--${photoCount}">${photoButtons}</div>` : "";
 
     const direction = index % 2 === 0 ? "top" : "bottom";
 
     return `
       <article class="timeline-item timeline-item--${direction}">
         <div class="timeline-item__body">
-          <time datetime="${escapeHtml(item.date)}">${formatDate(item.date)}</time>
           <h3>${escapeHtml(item.title)}</h3>
           ${photos}
         </div>
-        <div class="timeline-item__connector" aria-hidden="true"></div>
-        <div class="timeline-item__marker" aria-hidden="true">${String(index + 1).padStart(2, "0")}</div>
+        <div class="timeline-item__marker">
+          <span>${String(index + 1).padStart(2, "0")}</span>
+          <time datetime="${escapeHtml(item.date)}">${formatDate(item.date)}</time>
+        </div>
       </article>
     `;
   }).join("");
@@ -150,11 +153,12 @@ function renderTimeline(content) {
   $("#timelineList").innerHTML = `${items}
     <article class="timeline-item timeline-item--future timeline-item--bottom">
       <div class="timeline-item__body">
-        <span class="timeline-item__date">未完待续</span>
         <h3>后面的日子，也要一块慢慢写下去</h3>
       </div>
-      <div class="timeline-item__connector" aria-hidden="true"></div>
-      <div class="timeline-item__marker" aria-hidden="true">∞</div>
+      <div class="timeline-item__marker timeline-item__marker--future">
+        <span>∞</span>
+        <strong>未完待续</strong>
+      </div>
     </article>
   `;
 }

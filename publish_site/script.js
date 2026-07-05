@@ -13,6 +13,7 @@ const timelinePhotoIndexes = {
   20250208: [0, 1],
   20250214: [0, 1, 2],
   20250316: [0],
+  20250322: [0],
   20250329: [0],
   20250413: [0, 1],
   20250420: [0, 1],
@@ -118,7 +119,7 @@ function renderMoments(content) {
 }
 
 function renderTimeline(content) {
-  $("#timelineList").innerHTML = content.timeline.map((item, index) => {
+  const items = content.timeline.map((item, index) => {
     const dateKey = compactDate(item.date);
     const photoButtons = (timelinePhotoIndexes[dateKey] || []).map((photoIndex) => {
       const src = `assets/timeline_photos/${dateKey}_${photoIndex}.jpg`;
@@ -141,6 +142,16 @@ function renderTimeline(content) {
       </article>
     `;
   }).join("");
+
+  $("#timelineList").innerHTML = `${items}
+    <article class="timeline-item timeline-item--future">
+      <div class="timeline-item__marker" aria-hidden="true">∞</div>
+      <div class="timeline-item__body">
+        <span class="timeline-item__date">未完待续</span>
+        <h3>后面的日子，也要一块慢慢写下去</h3>
+      </div>
+    </article>
+  `;
 }
 
 function getPhotoName(photo) {
@@ -162,13 +173,52 @@ function renderGallery(content) {
 function bindInteractions() {
   const lightbox = $("#lightbox");
   const lightboxImg = $("#lightboxImg");
+  const timelineList = $("#timelineList");
+  let isDraggingTimeline = false;
+  let timelineMoved = false;
+  let dragStartX = 0;
+  let dragStartScroll = 0;
 
   document.addEventListener("click", (event) => {
+    if (timelineMoved) {
+      event.preventDefault();
+      timelineMoved = false;
+      return;
+    }
     const button = event.target.closest("[data-lightbox-src]");
     if (!button) return;
     lightboxImg.src = button.dataset.lightboxSrc;
     lightbox.showModal();
   });
+
+  timelineList.addEventListener("pointerdown", (event) => {
+    if (event.button !== undefined && event.button !== 0) return;
+    isDraggingTimeline = true;
+    timelineMoved = false;
+    dragStartX = event.clientX;
+    dragStartScroll = timelineList.scrollLeft;
+    timelineList.classList.add("is-dragging");
+    timelineList.setPointerCapture(event.pointerId);
+  });
+
+  timelineList.addEventListener("pointermove", (event) => {
+    if (!isDraggingTimeline) return;
+    const delta = event.clientX - dragStartX;
+    if (Math.abs(delta) > 5) timelineMoved = true;
+    timelineList.scrollLeft = dragStartScroll - delta;
+  });
+
+  function endTimelineDrag(event) {
+    if (!isDraggingTimeline) return;
+    isDraggingTimeline = false;
+    timelineList.classList.remove("is-dragging");
+    if (timelineList.hasPointerCapture(event.pointerId)) {
+      timelineList.releasePointerCapture(event.pointerId);
+    }
+  }
+
+  timelineList.addEventListener("pointerup", endTimelineDrag);
+  timelineList.addEventListener("pointercancel", endTimelineDrag);
 
   $(".lightbox__close").addEventListener("click", () => {
     lightbox.close();

@@ -125,9 +125,11 @@ function renderTimeline(content) {
     const photoIndexes = timelinePhotoIndexes[dateKey] || [];
     const photoButtons = photoIndexes.map((photoIndex, photoPosition) => {
       const src = `assets/timeline_photos/${dateKey}_${photoIndex}.jpg`;
+      const loading = index < 8 ? "eager" : "lazy";
+      const fetchPriority = index < 4 ? "high" : "auto";
       return `
         <button class="timeline-photo timeline-photo--${photoPosition + 1}" type="button" data-lightbox-src="${src}" aria-label="查看 ${escapeHtml(item.title)} 的照片">
-          <img src="${src}" loading="lazy" alt="${escapeHtml(item.title)}">
+          <img src="${src}" loading="${loading}" decoding="async" fetchpriority="${fetchPriority}" alt="${escapeHtml(item.title)}">
         </button>
       `;
     }).join("");
@@ -186,6 +188,21 @@ function bindInteractions() {
   let dragStartX = 0;
   let dragStartScroll = 0;
 
+  function openLightbox(src) {
+    if (!src) return;
+    lightboxImg.src = src;
+    lightbox.showModal();
+  }
+
+  timelineList.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-lightbox-src]");
+    if (!button || !timelineList.contains(button)) return;
+    event.preventDefault();
+    event.stopPropagation();
+    timelineMoved = false;
+    openLightbox(button.dataset.lightboxSrc);
+  }, true);
+
   document.addEventListener("click", (event) => {
     if (timelineMoved) {
       event.preventDefault();
@@ -194,8 +211,7 @@ function bindInteractions() {
     }
     const button = event.target.closest("[data-lightbox-src]");
     if (!button) return;
-    lightboxImg.src = button.dataset.lightboxSrc;
-    lightbox.showModal();
+    openLightbox(button.dataset.lightboxSrc);
   });
 
   timelineList.addEventListener("pointerdown", (event) => {

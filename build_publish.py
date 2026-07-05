@@ -10,8 +10,10 @@ FILES = [
     "index.html",
     "styles.css",
     "styles.timeline-fix.css",
+    "styles.timeline-v3.css",
     "script.js",
     "script.timeline-fix.js",
+    "script.timeline-v3.js",
     "content.json",
 ]
 

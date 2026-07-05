@@ -12,6 +12,7 @@ const timelinePhotoIndexes = {
   20250202: [0],
   20250208: [0, 1],
   20250214: [0, 1, 2],
+  20250308: [0],
   20250316: [0],
   20250322: [0],
   20250329: [0],
@@ -34,8 +35,8 @@ const timelinePhotoIndexes = {
   20251129: [0],
   20251212: [0],
   20251231: [0, 1],
-  20260101: [0, 1],
-  20260102: [0, 2, 3],
+  20260101: [0, 1, 2, 3],
+  20260102: [0],
   20260117: [0],
   20260221: [0],
   20260318: [0],
@@ -131,25 +132,29 @@ function renderTimeline(content) {
     }).join("");
     const photos = photoButtons ? `<div class="timeline-photos">${photoButtons}</div>` : "";
 
+    const direction = index % 2 === 0 ? "top" : "bottom";
+
     return `
-      <article class="timeline-item">
-        <div class="timeline-item__marker" aria-hidden="true">${String(index + 1).padStart(2, "0")}</div>
+      <article class="timeline-item timeline-item--${direction}">
         <div class="timeline-item__body">
           <time datetime="${escapeHtml(item.date)}">${formatDate(item.date)}</time>
           <h3>${escapeHtml(item.title)}</h3>
           ${photos}
         </div>
+        <div class="timeline-item__connector" aria-hidden="true"></div>
+        <div class="timeline-item__marker" aria-hidden="true">${String(index + 1).padStart(2, "0")}</div>
       </article>
     `;
   }).join("");
 
   $("#timelineList").innerHTML = `${items}
-    <article class="timeline-item timeline-item--future">
-      <div class="timeline-item__marker" aria-hidden="true">∞</div>
+    <article class="timeline-item timeline-item--future timeline-item--bottom">
       <div class="timeline-item__body">
         <span class="timeline-item__date">未完待续</span>
         <h3>后面的日子，也要一块慢慢写下去</h3>
       </div>
+      <div class="timeline-item__connector" aria-hidden="true"></div>
+      <div class="timeline-item__marker" aria-hidden="true">∞</div>
     </article>
   `;
 }

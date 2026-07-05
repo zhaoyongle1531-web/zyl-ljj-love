@@ -139,13 +139,13 @@ function renderTimeline(content) {
     return `
       <article class="timeline-item timeline-item--${direction}">
         <div class="timeline-item__body">
-          <h3>${escapeHtml(item.title)}</h3>
           ${photos}
         </div>
         <div class="timeline-item__marker">
           <span>${String(index + 1).padStart(2, "0")}</span>
           <time datetime="${escapeHtml(item.date)}">${formatDate(item.date)}</time>
         </div>
+        <h3 class="timeline-item__label">${escapeHtml(item.title)}</h3>
       </article>
     `;
   }).join("");
@@ -153,12 +153,12 @@ function renderTimeline(content) {
   $("#timelineList").innerHTML = `${items}
     <article class="timeline-item timeline-item--future timeline-item--bottom">
       <div class="timeline-item__body">
-        <h3>后面的日子，也要一块慢慢写下去</h3>
       </div>
       <div class="timeline-item__marker timeline-item__marker--future">
         <span>∞</span>
         <strong>未完待续</strong>
       </div>
+      <h3 class="timeline-item__label">后面的日子，也要一块慢慢写下去</h3>
     </article>
   `;
 }
@@ -213,7 +213,7 @@ function bindInteractions() {
   timelineList.addEventListener("pointermove", (event) => {
     if (!isDraggingTimeline) return;
     const delta = event.clientX - dragStartX;
-    if (Math.abs(delta) > 5) timelineMoved = true;
+    if (Math.abs(delta) > 12) timelineMoved = true;
     timelineList.scrollLeft = dragStartScroll - delta;
   });
 
